@@ -1,0 +1,9 @@
+test:
+  override:
+    - lein test
+
+deployment:
+  snapshots:
+    branch: master
+    commands:
+      - bin/release-snapshot.sh

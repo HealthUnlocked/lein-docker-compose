@@ -1,5 +1,7 @@
 # lein-docker-compose
 
+[![CircleCI](https://circleci.com/gh/HealthUnlocked/lein-docker-compose.svg?style=svg)](https://circleci.com/gh/HealthUnlocked/lein-docker-compose)
+
 Small leiningen plugin to help make using `docker-compose` with your Clojure projects easier :cat2:.
 
 It's possible to tell `docker-compose` explicitly which ports on your host machine to map container ports to, but this means you can't have more than one app running that uses the same ports.
