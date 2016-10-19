@@ -1,5 +1,6 @@
 # lein-docker-compose
 
+[![Clojars Project](https://img.shields.io/clojars/v/healthunlocked/lein-docker-compose.svg)](https://clojars.org/healthunlocked/lein-docker-compose)
 [![CircleCI](https://circleci.com/gh/HealthUnlocked/lein-docker-compose.svg?style=svg)](https://circleci.com/gh/HealthUnlocked/lein-docker-compose)
 
 Small leiningen plugin to help make using `docker-compose` with your Clojure projects easier :cat2:.
