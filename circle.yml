@@ -1,6 +1,6 @@
 test:
   override:
-    - lein test
+    - lein do test, ancient :all
 
 deployment:
   snapshots:
