@@ -8,7 +8,10 @@
 
 (defn docker-compose-file
   [project]
-  (io/file (:root project) "docker-compose.yml"))
+  (let [f (io/file (:root project) "docker-compose.yml")]
+    (if (.exists f)
+      f
+      (io/file (:root project) "../docker-compose.yml"))))
 
 (defn extract-container-port
   [port-config]
