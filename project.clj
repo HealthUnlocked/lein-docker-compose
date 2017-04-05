@@ -1,4 +1,4 @@
-(defproject healthunlocked/lein-docker-compose "0.1.1"
+(defproject healthunlocked/lein-docker-compose "0.1.2"
   :description "Leiningen plugin that provides environ with docker-compose port mappings"
   :url "https://github.com/healthunlocked/lein-docker-compose"
   :license {:name "Eclipse Public License"

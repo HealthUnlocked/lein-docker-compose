@@ -1,6 +1,7 @@
 (ns lein-docker-compose.plugin
   (:use [robert.hooke :only (add-hook)])
   (:require [yaml.core :as yaml]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.java.shell :as sh]
             [clojure.string :as s]
@@ -12,6 +13,13 @@
     (if (.exists f)
       f
       (io/file (:root project) "../docker-compose.yml"))))
+
+(defn lein-docker-env-file
+  [project]
+  (let [f (io/file (:root project) ".lein-docker-env")]
+    (if (.exists f)
+      f
+      (io/file (:root project) "../.lein-docker-env"))))
 
 (defn extract-container-port
   [port-config]
@@ -37,13 +45,16 @@
 
 (defn discover-docker-ports
   [project]
-  (if-not (.exists (docker-compose-file project))
-    (println "WARNING: Could not find docker-compose.yml")
-    (->> (slurp (docker-compose-file project))
-         (yaml/parse-string)
-         (get-exposed-ports)
-         (map (juxt config-key discover-port-mapping))
-         (into {}))))
+  (cond (.exists (lein-docker-env-file project))
+        (edn/read-string (slurp (lein-docker-env-file project)))
+        (.exists (docker-compose-file project))
+        (->> (slurp (docker-compose-file project))
+             (yaml/parse-string)
+             (get-exposed-ports)
+             (map (juxt config-key discover-port-mapping))
+             (into {}))
+        :else
+        (println "WARNING: Could not find .lein-docker-compose or docker-compose.yml")))
 
 (defn merge-docker-env-vars
   [func project]
