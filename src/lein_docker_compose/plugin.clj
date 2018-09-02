@@ -45,16 +45,19 @@
 
 (defn discover-docker-ports
   [project]
-  (cond (.exists (lein-docker-env-file project))
-        (edn/read-string (slurp (lein-docker-env-file project)))
-        (.exists (docker-compose-file project))
-        (->> (slurp (docker-compose-file project))
-             (yaml/parse-string)
-             (get-exposed-ports)
-             (map (juxt config-key discover-port-mapping))
-             (into {}))
-        :else
-        (println "WARNING: Could not find .lein-docker-compose or docker-compose.yml")))
+  (try
+    (cond (.exists (lein-docker-env-file project))
+          (edn/read-string (slurp (lein-docker-env-file project)))
+          (.exists (docker-compose-file project))
+          (->> (slurp (docker-compose-file project))
+               (yaml/parse-string)
+               (get-exposed-ports)
+               (map (juxt config-key discover-port-mapping))
+               (into {}))
+          :else
+          (println "WARNING: Could not find .lein-docker-compose or docker-compose.yml"))
+    (catch Exception _
+      (println "WARNING: Failed to discover ports"))))
 
 (defn merge-docker-env-vars
   [func project]
