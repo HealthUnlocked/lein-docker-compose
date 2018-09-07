@@ -1,4 +1,4 @@
-(defproject healthunlocked/lein-docker-compose "0.2.0-SNAPSHOT"
+(defproject healthunlocked/lein-docker-compose "0.2.0"
   :description "Leiningen plugin that provides environ with docker-compose port mappings"
   :url "https://github.com/healthunlocked/lein-docker-compose"
   :license {:name "Eclipse Public License"
@@ -9,5 +9,6 @@
                    :dependencies [[lein-ancient "0.6.15"]]}}
   :deploy-repositories [["clojars" {:username :env/clojars_username
                                     :password :env/clojars_password
+                                    :sign-releases false
                                     :url "https://clojars.org/repo/"}]]
   :eval-in-leiningen true)
